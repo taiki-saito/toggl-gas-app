@@ -6,6 +6,7 @@
   "author": "taiki-saito <neural.neuman921@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@types/google-apps-script": "^0.0.32"
+    "@types/google-apps-script": "^0.0.32",
+    "tslint": "^5.11.0"
   }
 }
