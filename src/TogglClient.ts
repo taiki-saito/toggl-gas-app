@@ -20,7 +20,7 @@ class TogglApp {
   }
 
   getUser(){
-    return this.get('/me')
+    return this._get('/me')
   }
 
   getTimeEntriesByEndTime(){
@@ -35,11 +35,11 @@ class TogglApp {
 
   }
 
-  get(endpoint: string, resource?: {[s: string]: string}): any {
+  protected _get(endpoint: string, resource?: {[s: string]: string}): any {
 
   }
 
-  _sendRequest(): any {
+  protected _sendRequest(): any {
 
   }
 
