@@ -11,30 +11,30 @@ function testRequest(): void {
 class TogglApp {
   apiToken: string;
   headers: {Authorization: string;};
-  private const = 'https://api.chatwork.com/v8';
+  private const = 'https://www.toggl.com/v8';
 
   constructor(apiToken: string) {
     this.headers = {Authorization: ' Basic ' + Utilities.base64Encode(apiToken)}
   }
 
-  getUser(): any {
+  getUser(){
+    return this.get('/me')
+  }
+
+  getTimeEntriesByEndTime(){
 
   }
 
-  getTimeEntriesByEndTime(): any {
+  getTimeEntriesOnToday(){
 
   }
 
-  getTimeEntriesOnToday(): any {
+  getProject(id: string){
 
   }
 
-  getProject(id: string): any {
+  get(endpoint: string, resource?: {[s: string]: string}): any {
 
-  }
-
-  get(endpoint: string, resource: {[s: string]: string}): any {
-    
   }
 
   _sendRequest(): any {
