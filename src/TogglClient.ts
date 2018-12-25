@@ -1,19 +1,19 @@
-import { API_TOKEN } from './config';
+import Constants from './config';
 
 function testRequest(): void {
   let url = 'https://www.toggl.com/api/v8/me';
   let options = {
     method: 'get',
-    headers: {"Authorization" : " Basic " + Utilities.base64Encode(API_TOKEN + ":api_token")}
+    headers: {"Authorization" : " Basic " + Utilities.base64Encode(Constants.API_TOKEN + ":api_token")}
   };
   let result = UrlFetchApp.fetch(url, options);
   console.log(result)
 }
 
-class TogglApp {
+export default class TogglApp {
   apiToken: string;
   headers: {Authorization: string;};
-  private apiEndpoint = 'https://www.toggl.com/v8';
+  private apiEndpoint = 'https://www.toggl.com/api/v8';
   private _retries_limit = 3;
 
   constructor(apiToken: string) {
@@ -21,7 +21,11 @@ class TogglApp {
   }
 
   getUser(){
-    return this._get('/me')
+    return this._get('/me');
+  }
+
+  getRunningTimeEntry(){
+    return this._get('/time_entries/current');
   }
 
   getTimeEntriesBetween(startTime: Date, endTime: Date){
@@ -29,14 +33,14 @@ class TogglApp {
       "start_date": startTime.toISOString(),
       "end_date": endTime.toISOString()
     };
-    return this._get('/time_entries', params)
+    return this._get('/time_entries', params);
   }
 
-  getTimeEntriesOnYesterday(){
+  getTimeEntriesOnToday(){
     let now = new Date();
-    let startOfYesterday = new Date(now.getFullYear(), now.getMonth(), now.getDay() - 1);
-    let endOfYesterday = new Date(now.getFullYear(), now.getMonth(), now.getDay());
-    return this.getTimeEntriesBetween(startOfYesterday, endOfYesterday);
+    let startLine = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1, 21);
+    let endLine = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 21);
+    return this.getTimeEntriesBetween(startLine, endLine);
   }
 
   protected _get(api: string, resources: {[s: string]: string} = {}): any {
@@ -52,8 +56,8 @@ class TogglApp {
     }
 
     const params: Object = {
-      method: 'get',
-      headers: {"Authorization" : " Basic " + Utilities.base64Encode(API_TOKEN + ":api_token")}
+      'method': 'get',
+      'headers': {"Authorization" : " Basic " + Utilities.base64Encode(Constants.API_TOKEN + ":api_token")}
     };
     return this._sendRequest(url, params);
   }
