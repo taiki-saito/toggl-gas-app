@@ -1,15 +1,5 @@
 import Constants from './config';
 
-function testRequest(): void {
-  let url = 'https://www.toggl.com/api/v8/me';
-  let options = {
-    method: 'get',
-    headers: {"Authorization" : " Basic " + Utilities.base64Encode(Constants.API_TOKEN + ":api_token")}
-  };
-  let result = UrlFetchApp.fetch(url, options);
-  console.log(result)
-}
-
 export default class TogglApp {
   apiToken: string;
   headers: {Authorization: string;};
